@@ -47,10 +47,10 @@
   <!-- References -->
   <ItemGroup>
     <Reference Include="Esri.ArcGISRuntime, Version=100.3.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Esri.ArcGISRuntime.WPF.100.3.0\lib\net461\Esri.ArcGISRuntime.dll</HintPath>
+      <HintPath>..\..\..\packages\Esri.ArcGISRuntime.WPF.100.3.0-daily2102\lib\net461\Esri.ArcGISRuntime.dll</HintPath>
     </Reference>
     <Reference Include="Esri.ArcGISRuntime.Hydrography, Version=100.3.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.3.0\lib\net461\Esri.ArcGISRuntime.Hydrography.dll</HintPath>
+      <HintPath>..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.3.0-daily2102\lib\net461\Esri.ArcGISRuntime.Hydrography.dll</HintPath>
     </Reference>
     <Reference Include="Esri.ArcGISRuntime.LocalServices, Version=100.2.1.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Esri.ArcGISRuntime.LocalServices.100.2.1\lib\net452\Esri.ArcGISRuntime.LocalServices.dll</HintPath>
@@ -466,6 +466,7 @@
     </Compile>
     <Compile Include="Samples\Network Analysis\FindRoute\FindRoute.xaml.cs">
       <DependentUpon>FindRoute.xaml</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Samples\Network Analysis\FindServiceArea\FindServiceArea.xaml.cs">
       <DependentUpon>FindServiceArea.xaml</DependentUpon>
@@ -984,6 +985,7 @@
     <Page Include="Samples\Network Analysis\FindRoute\FindRoute.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Page>
     <Page Include="Samples\Search\FindAddress\FindAddress.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -1014,6 +1016,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="SourceCode.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1387,6 +1393,7 @@
     <Content Include="Samples\Network Analysis\FindRoute\FindRoute.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Samples\Network Analysis\FindRoute\FindRoute.xaml" />
     <Content Include="Samples\Network Analysis\FindServiceArea\FindServiceArea.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -1414,6 +1421,12 @@
     <Content Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="SyntaxHighlighting\highlight.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SyntaxHighlighting\highlight.pack.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <!-- Sample Viewer code (not samples) -->
   <ItemGroup>
@@ -1425,6 +1438,9 @@
       <DependentUpon>ErrorPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Helpers\ToTreeViewItem.cs" />
+    <Compile Include="SourceCode.xaml.cs">
+      <DependentUpon>SourceCode.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WaitPage.xaml.cs">
       <DependentUpon>WaitPage.xaml</DependentUpon>
     </Compile>
@@ -1479,15 +1495,15 @@
   <!-- Imports -->
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\..\..\packages\Esri.ArcGISRuntime.WPF.100.3.0\build\net461\Esri.ArcGISRuntime.WPF.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.WPF.100.3.0\build\net461\Esri.ArcGISRuntime.WPF.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\..\..\packages\Esri.ArcGISRuntime.WPF.100.3.0\build\net461\Esri.ArcGISRuntime.WPF.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Esri.ArcGISRuntime.WPF.100.3.0\build\net461\Esri.ArcGISRuntime.WPF.targets'))" />
-    <Error Condition="!Exists('..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.3.0\build\net461\Esri.ArcGISRuntime.Hydrography.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.3.0\build\net461\Esri.ArcGISRuntime.Hydrography.targets'))" />
     <Error Condition="!Exists('..\..\..\packages\Esri.ArcGISRuntime.LocalServices.100.2.1\build\net452\Esri.ArcGISRuntime.LocalServices.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Esri.ArcGISRuntime.LocalServices.100.2.1\build\net452\Esri.ArcGISRuntime.LocalServices.targets'))" />
+    <Error Condition="!Exists('..\..\..\packages\Esri.ArcGISRuntime.WPF.100.3.0-daily2102\build\net461\Esri.ArcGISRuntime.WPF.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Esri.ArcGISRuntime.WPF.100.3.0-daily2102\build\net461\Esri.ArcGISRuntime.WPF.targets'))" />
+    <Error Condition="!Exists('..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.3.0-daily2102\build\net461\Esri.ArcGISRuntime.Hydrography.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.3.0-daily2102\build\net461\Esri.ArcGISRuntime.Hydrography.targets'))" />
   </Target>
-  <Import Project="..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.3.0\build\net461\Esri.ArcGISRuntime.Hydrography.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.3.0\build\net461\Esri.ArcGISRuntime.Hydrography.targets')" />
   <Import Project="..\..\..\packages\Esri.ArcGISRuntime.LocalServices.100.2.1\build\net452\Esri.ArcGISRuntime.LocalServices.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.LocalServices.100.2.1\build\net452\Esri.ArcGISRuntime.LocalServices.targets')" />
+  <Import Project="..\..\..\packages\Esri.ArcGISRuntime.WPF.100.3.0-daily2102\build\net461\Esri.ArcGISRuntime.WPF.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.WPF.100.3.0-daily2102\build\net461\Esri.ArcGISRuntime.WPF.targets')" />
+  <Import Project="..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.3.0-daily2102\build\net461\Esri.ArcGISRuntime.Hydrography.targets" Condition="Exists('..\..\..\packages\Esri.ArcGISRuntime.Hydrography.100.3.0-daily2102\build\net461\Esri.ArcGISRuntime.Hydrography.targets')" />
 </Project>
