@@ -1019,14 +1019,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType><CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="SourceCode.xaml">
+    <Page Include="SourceCode.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType><CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="WaitPage.xaml">
+    </Page>
+    <Page Include="WaitPage.xaml">
       <SubType>Designer</SubType><CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Generator>MSBuild:Compile</Generator>
-    </None>
+    </Page>
   </ItemGroup>
   <!-- Additional XAML -->
   <ItemGroup>
@@ -1160,8 +1160,6 @@
     <Page Include="Samples\Symbology\RenderUniqueValues\RenderUniqueValues.xaml"/>
     <Page Include="Samples\Symbology\SimpleRenderers\SimpleRenderers.xaml"/>
     <Page Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.xaml"/>
-    <Page Include="SourceCode.xaml"/>
-    <Page Include="WaitPage.xaml"/>
   </ItemGroup>
   <!-- Screenshots -->
   <ItemGroup>
