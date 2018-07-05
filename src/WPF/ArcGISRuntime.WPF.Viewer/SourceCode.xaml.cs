@@ -17,6 +17,7 @@ namespace ArcGISRuntime.WPF.Viewer
 {
     public partial class SourceCode
     {
+        // Holds source files (as strings of html).
         private Dictionary<string, string> _sourceFiles;
 
         public SourceCode()
@@ -26,54 +27,75 @@ namespace ArcGISRuntime.WPF.Viewer
 
         public void LoadSourceCode()
         {
-            string path = SampleManager.Current.SelectedSample.Path;
+            string folderPath = SampleManager.Current.SelectedSample.Path;
 
-            string csspath = path.Substring(0, path.IndexOf("Samples")) + "SyntaxHighlighting\\highlight.css";
-            string jspath = path.Substring(0, path.IndexOf("Samples")) + "SyntaxHighlighting\\highlight.pack.js";
+            // Filepaths for the css and js files used for syntax highlighting.
+            string cssPath = folderPath.Substring(0, folderPath.IndexOf("Samples")) + "SyntaxHighlighting\\highlight.css";
+            string cssBackgroundPath = folderPath.Substring(0, folderPath.IndexOf("Samples")) + "SyntaxHighlighting\\screen.css";
+            string jsPath = folderPath.Substring(0, folderPath.IndexOf("Samples")) + "SyntaxHighlighting\\highlight.pack.js";
 
+            // Dictionary holds html strings for source code as values. Keys are strings of filepaths.
             _sourceFiles = new Dictionary<string, string>();
+
+            // Clear out any old items when loading for a new sample.
             FileSelection.Items.Clear();
 
+            // Start of each html string.
             string htmlStart =
                 "<html>" +
                 "<head>" +
                 "<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">" +
-                "<link rel=\"stylesheet\" href=\"" + csspath + "\">" +
-                "<script type=\"text/javascript\" src=\"" + jspath + "\"></script>" +
+                "<link rel=\"stylesheet\" href=\"" + cssPath + "\">" +
+                "<link rel=\"stylesheet\" href=\"" + cssBackgroundPath + "\">" +
+                "<script type=\"text/javascript\" src=\"" + jsPath + "\"></script>" +
                 "<script>hljs.initHighlightingOnLoad();</script>" +
                 "</head>" +
                 "<body>" +
                 "<pre>";
 
+            // End of each html string.
             string htmlEnd =
                 "</pre>" +
                 "</body>" +
                 "</html>";
 
-            int csIndex = 0;
+            // Index of the .cs file. -1 will result in no selection if a .cs file is not found.
+            int csIndex = -1;
 
-            foreach (string filepath in Directory.GetFiles(path))
+            // Source code of the file.
+            string source;
+
+            // Add every .cs and .xaml file in the directory of the sample.
+            foreach (string filepath in Directory.GetFiles(folderPath))
             {
                 try
                 {
-                    string source;
-
                     if (filepath.EndsWith(".cs"))
                     {
-                        csIndex = _sourceFiles.Count;
+                        // Get the source text from the file.
                         source = File.ReadAllText(filepath);
+
+                        // Build the html.
                         source =
                             htmlStart +
                             "<code class=\"csharp\">" +
                             source +
                             "</code>" +
                             htmlEnd;
+
+                        // Set the index of the .cs file.
+                        csIndex = _sourceFiles.Count;
                     }
                     else if (filepath.EndsWith(".xaml"))
                     {
+                        // Get the source text from the file.
                         source = File.ReadAllText(filepath);
+
+                        // Replace the tag characters so that the html renders properly.
                         source = source.Replace("<", "&lt;");
                         source = source.Replace(">", "&gt;");
+
+                        // Build the html.
                         source =
                             htmlStart +
                             "<code class=\"xml\">" +
@@ -83,25 +105,32 @@ namespace ArcGISRuntime.WPF.Viewer
                     }
                     else
                     {
+                        // Continue looping over other files if file is not .cs or .xaml.
                         continue;
                     }
+                    // Add the source html to the _sourceFiles dictionary.
                     _sourceFiles[filepath] = source;
+
+                    // Add the file as a selectable item in the combobox.
                     FileSelection.Items.Add(filepath);
                 }
                 catch (Exception e)
                 {
+                    // Any files that failed to be read will have error messages printed to the console for debugging.
                     Console.WriteLine(e.Message);
-                    continue;
                 }
             }
 
+            // Default to the index of the last .cs file.
             FileSelection.SelectedIndex = csIndex;
         }
 
         private void SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if(FileSelection.Items.Count>0)
+            // Check that there are Items in the combobox. Prevents error when switching between samples.
+            if(!FileSelection.Items.IsEmpty)
             {
+                // Set the web browser to display the source code of the selected file.
                 sourceCodeBrowser.NavigateToString(_sourceFiles[FileSelection.SelectedValue.ToString()]);
             }
         }
