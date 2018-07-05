@@ -15,10 +15,13 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <Button Grid.Row="0" Grid.Column="0" Margin="5" Click="LoadCsharp" x:Name="CsharpButton" IsEnabled="False">C# Source Code</Button>
-        <Button Grid.Row="0" Grid.Column="1" Margin="5" Click="LoadXml"  x:Name="XmlButton"  IsEnabled="True">XAML Source Code</Button>
-        <WebBrowser x:Name="sourceCodeBrowser" Width="auto" Height="auto" Grid.Row="1" Grid.ColumnSpan="2"/>
+        <ComboBox x:Name="FileSelection"
+                          Grid.Row="0"
+                          SelectionChanged="SelectionChanged" />
+        <WebBrowser x:Name="sourceCodeBrowser"
+                    Width="auto"
+                    Height="auto"
+                    Grid.Row="1" />
     </Grid>
 </UserControl>

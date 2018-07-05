@@ -105,7 +105,7 @@ namespace ArcGISRuntime.Samples.Desktop
 
                 // Show the sample
                 SampleContainer.Content = SampleManager.Current.SampleToControl(selectedSample);
-                SourceCodeContainer.loadSourceCode();
+                SourceCodeContainer.LoadSourceCode();
             }
             catch (Exception exception)
             {
