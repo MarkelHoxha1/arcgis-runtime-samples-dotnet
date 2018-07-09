@@ -30,9 +30,9 @@ namespace ArcGISRuntime.WPF.Viewer
             string folderPath = SampleManager.Current.SelectedSample.Path;
 
             // Filepaths for the css and js files used for syntax highlighting.
-            string cssPath = folderPath.Substring(0, folderPath.IndexOf("Samples")) + "SyntaxHighlighting\\highlight.css";
-            string cssBackgroundPath = folderPath.Substring(0, folderPath.IndexOf("Samples")) + "SyntaxHighlighting\\screen.css";
-            string jsPath = folderPath.Substring(0, folderPath.IndexOf("Samples")) + "SyntaxHighlighting\\highlight.pack.js";
+            string cssPath = folderPath.Substring(0, folderPath.IndexOf("Samples")) + "Resources\\SyntaxHighlighting\\highlight.css";
+            string cssBackgroundPath = folderPath.Substring(0, folderPath.IndexOf("Samples")) + "Resources\\SyntaxHighlighting\\screen.css";
+            string jsPath = folderPath.Substring(0, folderPath.IndexOf("Samples")) + "Resources\\SyntaxHighlighting\\highlight.pack.js";
 
             // Dictionary holds html strings for source code as values. Keys are strings of filepaths.
             _sourceFiles = new Dictionary<string, string>();
