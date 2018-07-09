@@ -27,13 +27,13 @@ namespace ArcGISRuntime.UWP.Viewer
 
         public void LoadSourceCode()
         {
-            //SourceCodeBrowser.
+
             string folderPath = SampleManager.Current.SelectedSample.Path;
 
             // Filepaths for the css and js files used for syntax highlighting.
-            string cssPath = "ms-appx-web:///" + "SyntaxHighlighting/highlight.css";
-            string cssBackgroundPath = "ms-appx-web:///" + "SyntaxHighlighting/screen.css";
-            string jsPath = "ms-appx-web:///" + "SyntaxHighlighting/highlight.pack.js";
+            string cssPath = "ms-appx-web:///" + "Resources\\SyntaxHighlighting/highlight.css";
+            string cssBackgroundPath = "ms-appx-web:///" + "Resources\\SyntaxHighlighting/screen.css";
+            string jsPath = "ms-appx-web:///" + "Resources\\SyntaxHighlighting/highlight.pack.js";
 
             // Dictionary holds html strings for source code as values. Keys are strings of filepaths.
             _sourceFiles = new Dictionary<string, string>();
